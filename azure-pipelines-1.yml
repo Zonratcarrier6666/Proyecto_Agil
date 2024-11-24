@@ -1,0 +1,58 @@
+trigger:
+  - main  # La pipeline se ejecuta cuando haya cambios en la rama "main"
+
+pool:
+  vmImage: 'ubuntu-latest'  # Usa una máquina virtual con Ubuntu para ejecutar los pasos
+
+variables:
+  buildConfiguration: 'Release'  # Variable para la configuración de la construcción (Release, Debug, etc.)
+
+steps:
+
+# Paso 1: Checkout del código fuente
+- task: Checkout@2
+  displayName: 'Checkout del código'
+
+# Paso 2: Instalar dependencias del proyecto
+- task: UseNode@2
+  inputs:
+    versionSpec: '16.x'  # Usa la versión 16.x de Node.js
+  displayName: 'Instalar Node.js'
+
+- script: |
+    npm install  # Instala las dependencias del proyecto
+  displayName: 'Instalar dependencias del proyecto'
+
+# Paso 3: Construir el proyecto
+- script: |
+    npm run build  # Ejecuta el script de construcción definido en package.json
+  displayName: 'Construir el proyecto'
+
+# Paso 4: Ejecutar pruebas
+- script: |
+    npm test  # Ejecuta los tests del proyecto
+  displayName: 'Ejecutar pruebas'
+
+# Paso 5: Archivar los archivos generados
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.SourcesDirectory)/dist'  # La carpeta donde se encuentran los archivos generados
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/build-artifact.zip'  # Archivo comprimido que contendrá los artefactos
+  displayName: 'Archivar archivos generados'
+
+# Paso 6: Publicar los artefactos
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(Build.ArtifactStagingDirectory)'  # La carpeta con los artefactos generados
+    artifactName: 'drop'  # El nombre con el que se publicarán los artefactos
+    publishLocation: 'Container'  # Publicar en el contenedor de artefactos de Azure DevOps
+  displayName: 'Publicar artefactos'
+
+# Paso 7: Desplegar el proyecto a producción (esto es solo un ejemplo, puede ser un despliegue a cualquier entorno)
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'my-azure-subscription'  # Suscripción de Azure
+    appName: 'my-web-app'  # Nombre de la aplicación web de Azure
+    package: '$(Build.ArtifactStagingDirectory)/build-artifact.zip'  # Artefacto a desplegar
+  displayName: 'Desplegar a Azure Web App'
