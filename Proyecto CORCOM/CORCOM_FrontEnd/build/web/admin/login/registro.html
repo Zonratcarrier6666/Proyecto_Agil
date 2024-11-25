@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM-Registro</title>
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                background-color: #000;
+                color: #fff;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+
+            .Registro-container {
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                width: 1200px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                text-align: center;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                background-color: #333;
+                color: #fff;
+                border-radius: 5px;
+                font-size: 20px;
+                text-align: center;
+
+            }
+
+            .form-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .form-column {
+                width: 48%;
+                display: inline-block;
+                vertical-align: top;
+                margin-right: 5%;
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            .btn-group button {
+                padding: 20px 80px;
+                font-size: 30px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+
+            .btn-cancel {
+                background-color: #dc3545;
+                color: #fff;
+                padding: 30px 60px;
+                font-size: 50px;
+            }
+
+            .btn-next {
+                background-color: #28a745;
+                color: #fff;
+                padding: 15px 30px;
+                font-size: 20px;
+            }
+
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10px;
+            }
+
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="video-container">
+            <video autoplay muted loop id="video-background">
+                <source src="../../media/video/background2.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+
+        <div class="Registro-container">
+            <div class="form-group">
+                <label style="text-align: center; font-size: 50px; font-weight: bold; color: white; display: block;">Registro de empresa</label>
+            </div>
+
+            <div class="form-row" style="font-size: 20px; font-weight: bold">
+                <div class="form-column">
+                    <div class="form-group">
+                        <!-- NOMBRE DE LA EMPRESA -->
+                        <label for="txtNombreEmpresa"  >Nombre de la empresa</label>
+                        <input type="text" id="txtNombreEmpresa" name="txtNombreEmpresa">
+                    </div>
+                    <div class="form-group">
+                        <!-- Direccion de la empresa -->
+                        <label for="txtDireccionEmpresa">Direccion de la empresa</label>
+                        <input type="text" id="txtDireccionEmpresa" name="txtDireccionEmpresa">
+                    </div>
+                    <div class="form-group">
+                        <!-- Ciudad -->
+                        <label for="txtCiudad">Ciudad</label>
+                        <input type="text" id="txtCiudad" name="txtCiudad">
+                    </div>
+                    <div class="form-group">
+                        <!-- Estado -->
+                        <label for="cmbEstado">Estado</label>
+                        <select id="cmbEstado" name="cmbEstado" >
+                            <option value="">Selecciona un estado</option>
+                            <option value="Aguascalientes">Aguascalientes</option>
+                            <option value="Baja California">Baja California</option>
+                            <option value="Baja California Sur">Baja California Sur</option>
+                            <option value="Campeche">Campeche</option>
+                            <option value="Chiapas">Chiapas</option>
+                            <option value="Chihuahua">Chihuahua</option>
+                            <option value="Ciudad de México">Ciudad de México</option>
+                            <option value="Coahuila">Coahuila</option>
+                            <option value="Colima">Colima</option>
+                            <option value="Durango">Durango</option>
+                            <option value="Estado de México">Estado de México</option>
+                            <option value="Guanajuato">Guanajuato</option>
+                            <option value="Guerrero">Guerrero</option>
+                            <option value="Hidalgo">Hidalgo</option>
+                            <option value="Jalisco">Jalisco</option>
+                            <option value="Michoacán">Michoacán</option>
+                            <option value="Morelos">Morelos</option>
+                            <option value="Nayarit">Nayarit</option>
+                            <option value="Nuevo León">Nuevo León</option>
+                            <option value="Oaxaca">Oaxaca</option>
+                            <option value="Puebla">Puebla</option>
+                            <option value="Querétaro">Querétaro</option>
+                            <option value="Quintana Roo">Quintana Roo</option>
+                            <option value="San Luis Potosí">San Luis Potosí</option>
+                            <option value="Sinaloa">Sinaloa</option>
+                            <option value="Sonora">Sonora</option>
+                            <option value="Tabasco">Tabasco</option>
+                            <option value="Tamaulipas">Tamaulipas</option>
+                            <option value="Tlaxcala">Tlaxcala</option>
+                            <option value="Veracruz">Veracruz</option>
+                            <option value="Yucatán">Yucatán</option>
+                            <option value="Zacatecas">Zacatecas</option>
+                        </select>                
+                    </div>
+
+                </div>
+                <div class="form-column">
+                    <div class="form-group">
+                        <!-- Correo Electronico -->
+                        <label for="txtCorreoElectronico">Correo de la empresa</label>
+                        <input type="text" id="txtCorreoElectronico" name="txtCorreoElectronico">
+                    </div>
+                    <div class="form-group">
+                        <!-- SECTOR EMPRESARIAL-->
+                        <label for="txtSectorEmpresa">Sector empresarial</label>
+                        <input type="text" id="txtSectorEmpresa" name="txtSectorEmpresa">
+                    </div>
+                    <div class="form-group">
+                        <!-- TELEFONO DE LA EMPRESA -->
+                        <label for="txtTelefonoEmpresa">Telefóno</label>
+                        <input type="text" id="txtTelefonoEmpresa" name="txtTelefonoEmpresa">
+                    </div>
+                    <div class="form-group">
+                        <!-- NUMERO DE IDENTIFICACION FISCAL -->
+                        <label for="txtNumeroIdentificacionFiscal">Número de Identificación Fiscal (RFC, CIF, RUT, etc.)</label>
+                        <input type="text" id="txtNumeroIdentificacionFiscal" name="txtNumeroIdentificacionFiscal">
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn-cancel" id="btnCancelar" >Cancelar</button>
+                <button class="btn-next" id="btnNext" >Siguiente</button>
+            </div>
+        </div>
+
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+            </button>
+        </div>
+    </body>
+
+    <script src="../JS/registro.js"></script>
+</html>

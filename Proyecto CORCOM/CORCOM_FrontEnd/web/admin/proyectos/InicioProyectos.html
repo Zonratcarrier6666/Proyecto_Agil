@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <link href="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+            .form-group label {
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+            }
+            .form-group input,
+            .form-group textarea {
+                font-size: 16px;
+                font-weight: normal;
+            }
+            .form-group {
+                margin-bottom: 15px;
+            }
+            .form-group img {
+                max-width: 800px; /* Ajusta la imagen para que no exceda el ancho del contenedor */
+                height: auto; /* Mantiene la relación de aspecto de la imagen */
+                display: block; /* Hace que la imagen se comporte como un bloque */
+                margin: 0 auto; /* Centra la imagen horizontalmente */
+            }
+            .form-group iframe {
+                display: block; /* Hace que el iframe se comporte como un bloque */
+                margin: 0 auto; /* Centra el iframe horizontalmente */
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+            .Registro-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-45%, -50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                max-width: 90%;
+                width: 1200px;
+                overflow-y: auto;
+                max-height: 80vh;
+                z-index: 1200;
+            }
+            .modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .btn-close-modal {
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin: 10px;
+                width: 40px; /* Ajusta el tamaño del botón según lo necesites */
+                height: 40px; /* Ajusta el tamaño del botón según lo necesites */
+                background-color: red;
+                color: white;
+                border: none;
+                border-radius: 20%;
+                font-size: 20px;
+                font-weight: bold;
+                text-align: center;
+                line-height: 1;
+                cursor: pointer;
+            }
+
+            .modal-container {
+                padding: 20px;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+            .modal-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                padding: 20px;
+                overflow-y: auto;
+                z-index: 1200;
+            }
+            .modal-container .form-control {
+                background-color: #444;
+                color: #fff;
+                text-align: center;
+            }
+            .modal-container label {
+                color: #fff;
+            }
+            .modal {
+                z-index: 1060;
+            }
+            .modal-dialog {
+                z-index: 1070;
+                max-width: 1200px;
+            }
+            .modal-body .Registro-container {
+                max-height: calc(80vh - 120px);
+                overflow-y: auto;
+            }
+            .modal-backdrop {
+                z-index: -1050;
+            }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 120px;
+                background-color: #000;
+                color: #fff;
+                padding: 10px;
+                z-index: 10;
+            }
+            .sidebar button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+            .sidebar img {
+                width: 50px;
+                height: 50px;
+            }
+            .sidebar span {
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10;
+            }
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+            .centered-content {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                text-align: center;
+                color: #fff;
+                z-index: 1;
+            }
+            .centered-content img {
+                width: 150px;
+                height: auto;
+                margin-bottom: 20px;
+            }
+            .custom-button {
+                background-color: #000;
+                color: #fff;
+                border: 2px solid #fff;
+                border-radius: 20px;
+                padding: 10px 20px;
+                cursor: pointer;
+                transition: background-color 0.3s, border-color 0.3s;
+            }
+            .custom-button:hover {
+                background-color: #1a1a1a;
+                border-color: #fff;
+            }
+            .modal-header {
+                text-align: center;
+                justify-content: center; /* Centra el contenido del encabezado */
+            }
+
+            .modal-header h1 {
+                margin: 0;
+            }
+
+            #tablaProyectos {
+                margin-top: 20px;
+            }
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+            @media screen and (max-width: 576px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <div class="video-container">
+                <video autoplay muted loop id="video-background">
+                    <source src="../../media/video/background2.mp4" type="video/mp4">
+                </video>
+                <div class="overlay"></div>
+            </div>
+        </div>
+
+        <div class="centered-content Registro-container">
+            <img id="logoImagen" src="../../media/img/simbolo-matematico-conjunto-vacio.png" alt="Logo CORCOM">
+            <h1 id="mensaje1">0000</h1>
+            <h1 id="mensaje2">0000</h1>
+
+            <button id="btnNuevoProyecto" class="custom-button">
+                <div>
+                    <img src="../../media/img/plano.png" alt="Imagen del botón" style="width: 40px; height: 40px; float: left; margin-right: 10px;">
+                    <span style="color: #ffffff; font-size: 45px; font-weight: bold; line-height: 45px;">Crear Nuevo Proyecto</span>
+                </div>
+            </button>
+
+
+
+            <table id="tablaProyectos" class="table table-black table-striped text-white">
+                <!-- Aquí van las filas de la tabla que se llenarán dinámicamente -->
+            </table>
+        </div>
+        <div class="modal fade centered-content Registro-container" id="detallesProyectoModal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="modal-container">
+                            <!-- Encabezado del modal -->
+                            <div class="modal-header text-center">
+                                <h1 id="detallesProyectoModalLabel" class="">
+                                    Detalles del Proyecto</h1>
+                                <button type="button" class="btn btn-secondary btn-close-modal" data-dismiss="modal">X</button>
+                            </div>
+
+                            <!-- Contenido del modal -->
+                            <div class="form-group">
+                                <label for="txtNombreProyecto" style="font-size: 20px; font-weight: bold;">Nombre del Proyecto</label>
+                                <input type="text" id="txtNombreProyecto" name="txtNombreProyecto" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtDescripcion" style="font-size: 20px; font-weight: bold;">Descripción del proyecto</label>
+                                <textarea id="txtDescripcion" name="txtDescripcion" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="txtEstatus" style="font-size: 20px; font-weight: bold;">Estatus del proyecto</label>
+                                    <input type="text" id="txtEstatus" name="txtEstatus" class="form-control">
+                                </div>
+                                <div class="col-md-8 form-group">
+                                    <label for="txtNombreEmpresa" style="font-size: 20px; font-weight: bold;">Nombre de la Empresa</label>
+                                    <input type="text" id="txtNombreEmpresa" name="txtNombreEmpresa" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="txtDireccion" style="font-size: 20px; font-weight: bold;">Dirección de la Empresa</label>
+                                    <input type="text" id="txtDireccion" name="txtDireccion" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtEstadoEmpresa" style="font-size: 20px; font-weight: bold;">Estado de la Empresa</label>
+                                    <input type="text" id="txtEstadoEmpresa" name="txtEstadoEmpresa" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtCiudadEmpresa" style="font-size: 20px; font-weight: bold;">Ciudad de la Empresa</label>
+                                    <input type="text" id="txtCiudadEmpresa" name="txtCiudadEmpresa" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="txtCorreoEmpresa" style="font-size: 20px; font-weight: bold;">Correo de la Empresa</label>
+                                    <input type="email" id="txtCorreoEmpresa" name="txtCorreoEmpresa" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtSectorEmpresarial" style="font-size: 20px; font-weight: bold;">Sector Empresarial</label>
+                                    <input type="text" id="txtSectorEmpresarial" name="txtSectorEmpresarial" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtTelefonoEmpresa" style="font-size: 20px; font-weight: bold;">Teléfono de la Empresa</label>
+                                    <input type="tel" id="txtTelefonoEmpresa" name="txtTelefonoEmpresa" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="txtNumeroIdentificacionFiscal" style="font-size: 20px; font-weight: bold;">RFC de la Empresa</label>
+                                    <input type="text" id="txtNumeroIdentificacionFiscal" name="txtNumeroIdentificacionFiscal" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtNombreRepresentante" style="font-size: 20px; font-weight: bold;">Nombre del Representante</label>
+                                    <input type="text" id="txtNombreRepresentante" name="txtNombreRepresentante" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtTelefonoContacto" style="font-size: 20px; font-weight: bold;">Teléfono del Representante</label>
+                                    <input type="tel" id="txtTelefonoContacto" name="txtTelefonoContacto" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 form-group">
+                                    <label for="txtCorreoPersonal" style="font-size: 20px; font-weight: bold;">Correo Personal</label>
+                                    <input type="email" id="txtCorreoPersonal" name="txtCorreoPersonal" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtCargoEmpresa" style="font-size: 20px; font-weight: bold;">Cargo del Representante</label>
+                                    <input type="text" id="txtCargoEmpresa" name="txtCargoEmpresa" class="form-control">
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    <label for="txtHorarioContacto" style="font-size: 20px; font-weight: bold;">Horario de Contacto</label>
+                                    <input type="text" id="txtHorarioContacto" name="txtHorarioContacto" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtProblema" style="font-size: 20px; font-weight: bold;">Problema del Proyecto</label>
+                                <textarea id="txtProblema" name="txtProblema" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtIndicaciones" style="font-size: 20px; font-weight: bold;">Indicaciones para la Visita</label>
+                                <textarea id="txtIndicaciones" name="txtIndicaciones" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="txtFecha" style="font-size: 20px; font-weight: bold;">Fecha de la Visita</label>
+                                <input type="date" id="txtFecha" name="txtFecha" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="txtHoraProyecto" style="font-size: 20px; font-weight: bold;">Hora de la Visita (Formato 24 horas)</label>
+                                <input type="time" id="txtHoraProyecto" name="txtHoraProyecto" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="imgPlanoArquitectonico" style="font-size: 20px; font-weight: bold;">Plano Arquitectónico</label>
+                                <a href="" data-lightbox="planos" id="linkPlanoArquitectonico">
+                                    <img id="imgPlanoArquitectonico" src="" alt="Plano Arquitectónico" class="img-fluid" style="max-width: 100%; height: auto;">
+                                </a>
+                            </div>
+                            <div class="form-group">
+                                <label for="imgPlanoIC" style="font-size: 20px; font-weight: bold;">Plano IC</label>
+                                <a href="" data-lightbox="planos" id="linkPlanoIC">
+                                    <img id="imgPlanoIC" src="" alt="Plano IC" class="img-fluid" style="max-width: 100%; height: auto;">
+                                </a>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pdfPlano" style="font-size: 20px; font-weight: bold;">PDF del Proyecto</label>
+                                <iframe id="pdfPlano" src="" type="application/pdf" width="90%" height="800px"></iframe>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+            </button>
+        </div>
+
+        <div class="sidebar" >
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <img src="../../media/img/Logo corcom.png"   alt="Imagen del botón" style="width:80px; height: 60px;">
+            </button>
+            <!-- BUTTON HOME -->
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/pagina-de-inicio.png" alt="Imagen del botón" style=" width: 50px; height: 50px; ">
+                    <span style="color: #1D4273; display: block; font-size: 18px; font-weight: bold;">Inicio</span>
+                </div>
+            </button>
+            <!-- BUTTON SERVICIOS -->
+            <button onclick="window.location.href = '../../admin/servicios/Servicios.html';" id="btnServicios" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/tech-support.png" alt="Imagen del botón" style="width: 50px; height: 50px;">
+                    <span style="color: #4AB0D9; display: block; font-size: 18px; font-weight: bold;">Servicios</span>
+                </div>
+            </button>
+            <!-- BUTTON PROYECTOS -->
+            <button onclick="window.location.href = '../../admin/proyectos/InicioProyectos.html';" id="btnProyectos" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/gestion-de-proyectos.png" alt="Imagen del botón" style="width: 50px; height:50px; ">
+                    <span style="color: #055923; display: block; font-size: 18px; font-weight: bold;">Proyectos</span>
+                </div>
+            </button>
+            <!-- BUTTON AYUDA -->
+            <button onclick="window.location.href = '../../admin/ayuda/Ayuda.html';" id="btnAyuda" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/informacion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #B9D948; display: block; font-size: 18px; font-weight: bold;">Ayuda</span>
+                </div>
+            </button>
+            <!-- BUTTON LOGOUT -->
+            <button id="btnLogOut" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/cerrar-sesion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Salir</span>
+                </div>
+            </button>
+        </div>
+
+        <script src="../JS/LogOut.js"></script>
+        <script src="../JS/inicioProyectos.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
+        <script>
+                // Comprobar si hay token en el localStorage
+                let token = localStorage.getItem('token');
+                if (!token) {
+                    // Redirigir a la URL especificada si no hay token
+                    window.location.href = 'http://localhost:8080/CORCOM_FrontEnd/';
+                }
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('#btnNuevoProyecto').click(function () {
+                    $('#tablaProyectos').hide();
+                    $('#detallesProyectoModal').modal('show');
+                });
+
+                $('#detallesProyectoModal').on('hidden.bs.modal', function () {
+                    $('#tablaProyectos').show();
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: -1; /* Coloca el video en el fondo */
+            }
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0.8) 100%);
+            }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 120px;
+                background-color: #000;
+                color: #fff;
+                padding: 10px;
+                z-index: 1;
+            }
+            .sidebar button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+            .sidebar img {
+                width: 50px;
+                height: 50px;
+            }
+            .sidebar span {
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 1;
+            }
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+            .table-container {
+                position: relative;
+                margin-left: 140px; /* Para dejar espacio a la barra lateral */
+                padding: 20px;
+                z-index: 2; /* Coloca la tabla encima de la barra lateral */
+            }
+            .Registro-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-45%, -50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                max-width: 90%;
+                width: 1200px;
+
+                overflow-y: auto; /* Agrega scroll vertical */
+                max-height: 80%; /* Ejemplo de altura máxima ajustable */
+
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                text-align: center;
+                color: white;
+            }
+            .Registro-container {
+                margin: 20px;
+                padding: 20px;
+                background-color: #000000;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .Registro-container h2 {
+                text-align: center;
+                color: white;
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                font-weight: bold;
+                font-size: 20px;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                background-color: #2B2A33;
+                color: #fff;
+                border-radius: 5px;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .form-group input:focus, .form-group select:focus {
+                background-color: #2B2A33; /* Color de fondo al enfocar */
+                color: #fff;
+            }
+
+            .form-row {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            .form-column {
+                width: 48%;
+            }
+            /* Estilos para el textarea */
+            #txtCaracteristicas  {
+                background-color: #2B2A33;
+                color: white;
+                border: 1px solid #2B2A33;
+            }
+
+            #txtCaracteristicas ::placeholder {
+                color: #bbbbbb;
+            }
+            /* Estilo para la imagen cargada */
+            #imagePreview {
+                width: 100%;
+                height: auto;
+                margin-top: 15px;
+                display: none;
+                border-radius: 8px;
+                border: 1px solid #2B2A33;
+            }
+            /* Botones personalizados */
+            .custom-button {
+                background-color: #466673;
+                color: #ffffff;
+                border: 2px solid #ffffff;
+                border-radius: 8px;
+                font-size: 20px;
+                font-weight: bold;
+                padding: 15px 30px;
+                text-transform: uppercase;
+                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            }
+
+            .custom-button:hover {
+                background-color: #253540;
+                border-color: #ffffff;
+                color: #ffffff;
+            }
+            
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    width: 100px;
+                }
+                .table-container {
+                    margin-left: 110px;
+                }
+            }
+
+
+            /* Consultas de medios para ajustar tamaños en pantallas pequeñas */
+            @media screen and (max-width: 1200px) {
+                .btn-custom-fixed {
+                    width: 20%;
+                    bottom: 10%;
+                }
+
+                .btn-custom-fixed img.btn-image {
+                    width: 25%;
+                }
+            }
+
+            @media screen and (max-width: 992px) {
+                .btn-custom-fixed {
+                    width: 25%;
+                    bottom: 8%;
+                }
+
+                .btn-custom-fixed img.btn-image {
+                    width: 30%;
+                }
+            }
+
+            @media screen and (max-width: 768px) {
+                .btn-custom-fixed {
+                    width: 35%;
+                    bottom: 6%;
+                }
+
+                .btn-custom-fixed img.btn-image {
+                    width: 40%;
+                }
+            }
+
+            @media screen and (max-width: 576px) {
+                .btn-custom-fixed {
+                    width: 50%;
+                    bottom: 4%;
+                }
+
+                .btn-custom-fixed img.btn-image {
+                    width: 50%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        
+        <div class="Registro-container">
+            <h2>Registro de Producto</h2>
+            <div id="registroForm">
+                <div class="row">
+                    <!-- Tipo -->
+                    <div class="col-md-6 col-lg-4 form-group">
+                        <label for="txtTipo">Tipo:</label>
+                        <input type="text" class="form-control" id="txtTipo" placeholder="Ingresa el tipo">
+                    </div>
+
+                    <!-- Marca -->
+                    <div class="col-md-6 col-lg-4 form-group">
+                        <label for="txtMarca">Marca:</label>
+                        <input type="text" class="form-control" id="txtMarca" placeholder="Ingresa la marca">
+                    </div>
+
+                    <!-- Modelo -->
+                    <div class="col-md-6 col-lg-4 form-group">
+                        <label for="txtModelo">Modelo:</label>
+                        <input type="text" class="form-control" id="txtModelo" placeholder="Ingresa el modelo">
+                    </div>
+
+                    <!-- Características -->
+                    <div class="col-md-12 form-group">
+                        <label for="txtCaracteristicas">Características:</label>
+                        <textarea class="form-control" id="txtCaracteristicas" rows="4" placeholder="Ingresa las características"></textarea>
+                    </div>
+
+                    <!-- Precio -->
+                    <div class="col-md-6 col-lg-4 form-group">
+                        <label for="txtPrecio">Precio:</label>
+                        <input type="number" class="form-control" id="txtPrecio" placeholder="Ingresa el precio">
+                    </div>
+
+                    <!-- Existencias -->
+                    <div class="col-md-6 col-lg-4 form-group">
+                        <label for="txtExistencias">Existencias:</label>
+                        <input type="number" class="form-control" id="txtExistencias" placeholder="Ingresa las existencias">
+                    </div>
+
+                    <!-- Subir Foto -->
+                    <div class="col-md-12 form-group text-center">
+                        <label for="fileInput">Selecciona una foto:</label>
+                        <button type="button" class="btn custom-button" onclick="document.getElementById('fileInput').click()">Subir Foto</button>
+                        <input type="file" class="form-control-file" id="fileInput" accept="image/*" style="display: none;">
+                    </div>
+
+                    <!-- Vista previa de la imagen -->
+                    <div class="col-md-12 form-group">
+                        <img id="imagePreview" alt="Vista previa de la imagen">
+                    </div>
+
+                    <!-- Botón de Enviar -->
+                    <div class="col-md-12 form-group text-center">
+                        <button onclick="agregarmaterial();" type="submit" class="btn custom-button">Añadir Producto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="video-container">
+                <video autoplay muted loop id="video-background">
+                    <source src="../../media/video/background2.mp4" type="video/mp4">
+                </video>
+                <div class="overlay"></div>
+            </div>
+        </div>
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a>
+            </button>
+            <button onclick="window.location.href = 'admin/login/loginAdmin.html';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/admin-con-ruedas-dentadas.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+            </button>
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+            </button>
+        </div>
+        <div class="sidebar">
+            <button onclick="window.location.href = '../../admin/inicio/inicioAdmin.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <img src="../../media/img/Logo corcom.png" alt="Imagen del botón" style="width:80px; height: 60px;">
+            </button>
+            <button onclick="window.location.href = '../../admin/proyectosAdmin/proyectosAdmin.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/gestion-de-proyectos(2).png" alt="Imagen del botón" style="width: 50px; height:50px;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Proyectos</span>
+                </div>
+            </button>
+            <button onclick="window.location.href = '../../admin/inventario/inventario.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/almacen.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Inventario</span>
+                </div>
+            </button>
+            <button id="btnLogOut" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/cerrar-sesion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Salir</span>
+                </div>
+            </button>
+        </div>
+
+
+        <script src="../JS/InventarioAgregar.js"></script>
+        <script src="../JS/LogOut.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+                document.getElementById('fileInput').addEventListener('change', function (event) {
+                    const file = event.target.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const imagePreview = document.getElementById('imagePreview');
+                            imagePreview.src = e.target.result;
+                            imagePreview.style.display = 'block';
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+        </script>
+
+    </body>
+</html>

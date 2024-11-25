@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="media/img/Logo corcom.png" type="image/png">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .carousel-item {
+                height: 100vh;
+                min-height: 300px;
+                background: no-repeat center center scroll;
+                background-size: cover;
+            }
+            .carousel-item:nth-child(1)::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .carousel-item::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+                pointer-events: none;
+                z-index: 1;
+            }
+
+            .carousel-caption {
+                background-color: rgba(0, 0, 0, 0.5);
+                padding: 20px;
+                border-radius: 10px;
+                bottom: 15%;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 120px; /* Ancho fijo para el sidebar */
+                background-color: #000;
+                color: #fff;
+                padding: 5px; /* Margen interno para el contenido del sidebar */
+                z-index: 10;
+                align-items: center; /* Centrar verticalmente el contenido */
+                text-align: center; /* Alinear el texto al centro */
+            }
+            .sidebar a {
+                color: #00ff66;
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Centrar verticalmente el contenido */
+                margin: 15px 0;
+                text-align: center; /* Alinear el texto al centro */
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10;
+            }
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+            /* Resto de tu CSS aquí */
+            .image-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                bottom: 90%;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                padding: 200px;
+                box-sizing: border-box;
+                z-index: 1;
+    flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .image-container img {
+                max-width: calc(100% - 100px);
+                max-height: calc(100% - 100px);
+                width: auto;
+                height: auto;
+            }
+            /* Media query para dispositivos de tamaño medio */
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    width: 100px; /* Reducir el ancho para pantallas más pequeñas */
+                }
+            }
+
+            /* Media query para dispositivos pequeños */
+            @media screen and (max-width: 576px) {
+                .sidebar {
+                    width: 100px; /* Reducir aún más el ancho para pantallas muy pequeñas */
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar" hidden="">
+            <button onclick="window.location.href = 'index.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <img src="media/img/Logo corcom.png"   alt="Imagen del botón" style="width:80px; height: 60px;">
+            </button>
+            <!-- BUTTON HOME -->
+            <button onclick="window.location.href = 'index.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="media/img/pagina-de-inicio.png" alt="Imagen del botón" style=" width: 50px; height: 50px; ">
+                    <span style="color: #1D4273; display: block; font-size: 18px; font-weight: bold;">Inicio</span>
+                </div>
+            </button>
+            <!-- BUTTON SERVICIOS -->
+            <button onclick="window.location.href = 'admin/login/login.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="media/img/tech-support.png" alt="Imagen del botón" style="width: 50px; height: 50px;">
+                    <span style="color: #4AB0D9; display: block; font-size: 18px; font-weight: bold;">Servicios</span>
+                </div>
+            </button>
+            <!-- BUTTON PROYECTOS -->
+            <button onclick="window.location.href = 'admin/login/login.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="media/img/gestion-de-proyectos.png" alt="Imagen del botón" style="width: 50px; height:50px; ">
+                    <span style="color: #055923; display: block; font-size: 18px; font-weight: bold;">Proyectos</span>
+                </div>
+            </button>
+            <!-- BUTTON AYUDA -->
+            <button onclick="window.location.href = 'admin/login/login.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="media/img/informacion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #B9D948; display: block; font-size: 18px; font-weight: bold;">Ayuda</span>
+                </div>
+            </button>
+        </div>
+        <div class="content">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" style="background-image: url('media/img/edificios2.jpeg');">
+
+                    </div>
+                    <div class="carousel-item" style="background-image: url('media/img/redes2.jpg');">
+
+                    </div>
+                    <div class="carousel-item" style="background-image: url('media/img/servers2.jpg');">
+
+                    </div>
+                    <div class="carousel-item" style="background-image: url('media/img/videovigilancia2.jpg');">
+
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="image-container">
+                <img src="media/img/Logo corcom.png" alt="Logo de la Empresa">
+                <button class="btn btn-dark mt-3" style=" width: 30%; border: 2px solid white; border-radius: 10px; color: white; font-size: 300%" onclick="window.location.href = 'admin/login/login.html';">Empezar</button>
+            </div>
+
+        </div>
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+            <button onclick="window.location.href = 'admin/login/loginAdmin.html';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="media/img/admin-con-ruedas-dentadas.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+            </button>
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+
+            </button>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+                window.onload = function () {
+                    var token = localStorage.getItem('token');
+                    if (token) {
+                        window.location.href = 'admin/inicio/inicioCliente.html';
+                    }
+                };
+        </script>
+    </body>
+</html>

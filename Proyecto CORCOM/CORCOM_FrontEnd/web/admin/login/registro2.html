@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM-Registro</title>
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                background-color: #000;
+                color: #fff;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+
+            .Registro-container {
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                width: 1200px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                text-align: center;
+            }
+
+            .form-group input, .form-group select {
+                width: 100%;
+                padding: 15px;
+                border: none;
+                background-color: #333;
+                color: #fff;
+                border-radius: 5px;
+                font-size: 20px;
+                text-align: center;
+
+            }
+
+            .form-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .form-column {
+                width: 48%;
+                display: inline-block;
+                vertical-align: top;
+                margin-right: 5%;
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            .btn-group button {
+                padding: 20px 80px;
+                font-size: 30px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 40px;
+                margin-right: 40px;
+            }
+
+            .btn-Anterior {
+                background-color: #1D3377;
+                color: #fff;
+                padding: 30px 60px;
+                font-size: 50px;
+            }
+
+            .btn-registrarme {
+                background-color: #28a745;
+                color: #fff;
+                padding: 15px 30px;
+                font-size: 20px;
+            }
+
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10px;
+            }
+
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 45%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0);
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                width: 80%;
+                max-width: 1200px;
+                height: 100%;
+                max-height: 490px;
+                text-align: center;
+                z-index: 1200; /* Asegura que esté por encima del resto del contenido */
+            }
+
+            .modal img {
+                width: 100px;
+                margin-top: 20px;
+            }
+
+            .modal h2 {
+                font-size: 40px;
+                margin-top: 20px;
+                color: #fff;
+            }
+
+            .modal .btn-group {
+                margin-top: 20px;
+
+            }
+            .modal .btn-group2 {
+                margin-top: 20px;
+
+            }
+
+            .modal .btn-group button {
+                padding: 30px 80px;
+                margin: 0 10px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="video-container">
+            <video autoplay muted loop id="video-background">
+                <source src="../../media/video/background2.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+
+        <div class="Registro-container">
+            <div class="form-group">
+                <label style="text-align: center; font-size: 50px; font-weight: bold; color: white; display: block;">Registro de contacto</label>
+            </div>
+
+            <div class="form-row" style="font-size: 20px; font-weight: bold">
+                <div class="form-column">
+                    <div class="form-group">
+                        <!-- NOMBRE DEL REPRESENTANTE -->
+                        <label for="txtNombreRepresentante"  >Nombre de la representante</label>
+                        <input type="text" id="txtNombreRepresentante" name="txtNombreRepresentante">
+                    </div>
+                    <div class="form-group">
+                        <!-- Telefono de contacto -->
+                        <label for="txtTelefonoContactoDirecto">Telefono de contacto directo</label>
+                        <input type="text" id="txtTelefonoContactoDirecto" name="txtTelefonoContactoDirecto">
+                    </div>
+                    <div class="form-group">
+                        <!-- CORREO ELECTRONICO PERSONAL O CORPORATIVO -->
+                        <label for="txtCorreoElectronicoPersonal">Coreo electronico Personal/Corporativo</label>
+                        <input type="text" id="txtCorreoElectronicoPersonal" name="txtCorreoElectronicoPersonal">
+                    </div>
+                    <div class="form-group">
+                        <!-- Password -->
+                        <label for="txtPassword">Crea una contraseña valida</label>
+                        <input type="text" id="txtPassword" name="txtPassword">
+                    </div>
+                </div>
+                <div class="form-column">
+                    <div class="form-group">
+                        <!-- Cargo o Posicion -->
+                        <label for="txtCargo">Cargo o Posicion</label>
+                        <input type="text" id="txtCargo" name="txtCargo">
+                    </div>
+                    <div class="form-group">
+                        <!-- Horario de contacto-->
+                        <label for="txtHorarioContacto">Hoarario de contacto</label>
+                        <input type="text" id="txtHorarioContacto" name="txtHorarioContacto">
+                    </div>
+                    <div class="form-group">
+                        <!-- Notacion adicionales o comentarios -->
+                        <label for="txtNotas">Notas adicionales o Comentarios</label>
+                        <input type="text" id="txtNotas" name="txtNotas">
+                    </div>
+                    <div class="form-group">
+                        <!-- Password confirm-->
+                        <label for="txtPasswordConfirm">Confirma la contraseña</label>
+                        <input type="text" id="txtPasswordConfirm" name="txtPasswordConfirm">
+                    </div>
+                </div>
+            </div>
+
+            <div class="btn-group">
+                <button id="btnAnterior" class="btn-Anterior" onclick="window.location.href = 'registro.html';" >Anterior</button>
+                <button id="btnRegistrarme" class="btn-registrarme">Registrarme</button>
+            </div>
+        </div>
+        <!-- ALERTA -->
+        <div id="alertModal" class="modal">
+            <img src="../../media/img/advertencia.png" alt="Imagen de la alerta">
+            <h2> Recuerda que los datos que ingreses son cruciales 
+                para brindarte un servicio excelente.
+                Proporcionar información incorrecta o inexacta puede 
+                afectar negativamente la calidad de tu experiencia.
+                ¿Deseas registrarte? </h2>
+            <div class="btn-group">
+                <button id="btnRevisar" onclick="cerrarModal()" style=" font-family: Arial, sans-serif; font-weight: bold; font-size: 30px; background-color: #1D3377;">Revisar mis datos</button>
+                <button id="btnAceptar" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 30px; background-color: #057433;">Aceptar</button>
+            </div>
+        </div>
+        <-<!-- Mostrar contraseña -->
+        <div id="passwordModal" class="modal">
+            <div class="modal-content">
+                <h2>Contraseña Generada</h2>
+                <p id="passwordText"></p>
+                <div class="btn-group">
+                    <button id="btnGuardarPassword">Guardar contraseña</button>
+                    <button id="btnContinuar">Continuar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+            </button>
+        </div>
+        <script src="../JS/registro.js"></script>
+
+    </body>
+</html>

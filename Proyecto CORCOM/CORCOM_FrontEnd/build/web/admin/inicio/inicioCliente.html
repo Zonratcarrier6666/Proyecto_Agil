@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 120px;
+                background-color: #000;
+                color: #fff;
+                padding: 10px;
+                z-index: 10;
+            }
+            .sidebar button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+            .sidebar img {
+                width: 50px;
+                height: 50px;
+            }
+            .sidebar span {
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10;
+            }
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+            /* Cards Carousel */
+
+            .icon-cards__content {
+                margin-top: 20px;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                transform-origin: center;
+                transform-style: preserve-3d;
+                transform: translateZ(-50vw) rotateY(0);
+                animation: carousel 12s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards; /* Ajusta la duración según lo necesites */
+            }
+            .icon-cards {
+                margin-top: 20px;
+                position: relative;
+                width: 70%;
+                height: 70%;
+                color: white;
+                perspective: 3000px;
+                transform-origin: center;
+                transform: translateX(45px);
+            }
+            .icon-cards__item {
+                margin-top: 5%;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                box-shadow: 0 5px 20px rgba(0,0,0,.8);
+                border-radius: 6px;
+                background-size: cover;
+                background-position: center;
+                transform-origin: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 2rem; /* Ajusta el tamaño del texto según lo necesites */
+                color: #fff;
+            }
+            .text-container {
+                position: absolute;
+                z-index: 1; /* Ensures text is above the background */
+                color: #fff; /* White text color */
+                font-size: 60px; /* Adjust as needed */
+                text-align: center;
+                padding: 20px;
+                width: 80%;
+                border-radius: 8px;
+                background-color: rgba(0, 0, 0, 0.7); /* Black background with 0.7 opacity */
+            }
+            .icon-cards__item .h1 {
+                position: relative;
+                z-index: 1; /* Ensures text is above the background */
+                color: #fff; /* White text color */
+                font-size: 35px; /* Adjust as needed */
+                text-align: center;
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            .icon-cards__item:nth-child(1) {
+                transform: rotateY(0deg) translateZ(60vw); /* Ajusta el valor de translateZ según el número de ítems */
+            }
+            .icon-cards__item:nth-child(2) {
+                transform: rotateY(72deg) translateZ(60vw); /* Ajusta el valor de rotateY y translateZ según el número de ítems */
+            }
+            .icon-cards__item:nth-child(3) {
+                transform: rotateY(144deg) translateZ(60vw);
+            }
+            .icon-cards__item:nth-child(4) {
+                transform: rotateY(216deg) translateZ(60vw);
+            }
+            .icon-cards__item:nth-child(5) {
+                transform: rotateY(288deg) translateZ(60vw);
+            }
+            .custom-margin {
+                margin: 600px auto; /* Añade un margen de 20px alrededor y centra horizontalmente */
+            }
+            @keyframes carousel {
+                0%,  15%  {
+                    transform: translateZ(-40vw) rotateY(0deg);
+                }
+                25%, 40% {
+                    transform: translateZ(-40vw) rotateY(-72deg);
+                }
+                50%, 65% {
+                    transform: translateZ(-40vw) rotateY(-144deg);
+                }
+                75%, 90% {
+                    transform: translateZ(-40vw) rotateY(-216deg);
+                }
+                95%,100% {
+                    transform: translateZ(-40vw) rotateY(-288deg);
+                }
+            }
+
+            /* Resto del CSS aquí */
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+            @media screen and (max-width: 576px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <div class="video-container">
+                <video autoplay muted loop id="video-background">
+                    <source src="../../media/video/background2.mp4" type="video/mp4">
+                </video>
+                <div class="overlay"></div>
+            </div>
+        </div>
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+
+            </button>
+        </div>
+        <div class="sidebar" >
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <img src="../../media/img/Logo corcom.png"   alt="Imagen del botón" style="width:80px; height: 60px;">
+            </button>
+            <!-- BUTTON HOME -->
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/pagina-de-inicio.png" alt="Imagen del botón" style=" width: 50px; height: 50px; ">
+                    <span style="color: #1D4273; display: block; font-size: 18px; font-weight: bold;">Inicio</span>
+                </div>
+            </button>
+            <!-- BUTTON SERVICIOS -->
+            <button onclick="window.location.href = '../../admin/servicios/Servicios.html';" id="btnServicios" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/tech-support.png" alt="Imagen del botón" style="width: 50px; height: 50px;">
+                    <span style="color: #4AB0D9; display: block; font-size: 18px; font-weight: bold;">Servicios</span>
+                </div>
+            </button>
+            <!-- BUTTON PROYECTOS -->
+            <button onclick="window.location.href = '../../admin/proyectos/InicioProyectos.html';" id="btnProyectos" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/gestion-de-proyectos.png" alt="Imagen del botón" style="width: 50px; height:50px; ">
+                    <span style="color: #055923; display: block; font-size: 18px; font-weight: bold;">Proyectos</span>
+                </div>
+            </button>
+            <!-- BUTTON AYUDA -->
+            <button onclick="window.location.href = '../../admin/ayuda/Ayuda.html';" id="btnAyuda" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/informacion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #B9D948; display: block; font-size: 18px; font-weight: bold;">Ayuda</span>
+                </div>
+            </button>
+            <!-- BUTTON LOGOUT -->
+            <button id="btnLogOut" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/cerrar-sesion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Salir</span>
+                </div>
+            </button>
+        </div>
+
+        <figure class="icon-cards mt-2 custom-margin">
+            <div class="icon-cards__content">
+                <div class="icon-cards__item d-flex align-items-center justify-content-center" style="background-image: url('../../media/img/slide1.jpg');">
+                    <div class="text-container">
+                        <span class="h1">La tecnología no solo resuelve problemas; abre un mundo de posibilidades y oportunidades para transformar tu vida.</span>
+                    </div>
+                </div>
+                <div class="icon-cards__item d-flex align-items-center justify-content-center" style="background-image: url('../../media/img/videovigilanciaV1.jpg');">
+                    <div class="text-container">
+                        <span class="h1">Adoptar soluciones tecnológicas es dar un paso hacia un futuro más eficiente y emocionante. ¡Deja que la tecnología te impulse hacia el éxito!</span>
+                    </div>
+                </div>
+                <div class="icon-cards__item d-flex align-items-center justify-content-center" style="background-image: url('../../media/img/slide3.jpg');">
+                    <div class="text-container">
+                        <span class="h1">Cada avance tecnológico es una herramienta para simplificar tu vida y alcanzar tus metas más rápidamente. ¡Aprovecha la tecnología para hacer más con menos esfuerzo!</span>
+                    </div>
+                </div>
+                <div class="icon-cards__item d-flex align-items-center justify-content-center" style="background-image: url('../../media/img/slide4.jpg');">
+                    <div class="text-container">
+                        <span class="h1">La tecnología es tu aliada en el camino hacia la innovación. Atrévete a explorar nuevas soluciones y descubrir cómo pueden mejorar tu día a día.</span>
+                    </div>
+                </div>
+                <div class="icon-cards__item d-flex align-items-center justify-content-center" style="background-image: url('../../media/img/edificios1.jpg');">
+                    <div class="text-container">
+                        <span class="h1">No te limites a imaginar el futuro, construyelo con la ayuda de la tecnología. ¡Hoy es el mejor momento para comenzar a utilizar herramientas que transformen tu manera de trabajar y vivir!</span>
+                    </div>
+                </div>
+            </div>
+        </figure>
+
+        <div class="checkbox">
+            <input class="d-none" id="toggle-animation" type="checkbox" checked />
+            <label class="checkbox__checkbox" for="toggle-animation"></label>
+            <label class="checkbox__label" for="toggle-animation">Toggle animation</label>
+        </div>
+
+        <script src="../JS/LogOut.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+                // Comprobar si hay token en el localStorage
+                let token = localStorage.getItem('token');
+                if (!token) {
+                    // Redirigir a la URL especificada si no hay token
+                    window.location.href = 'http://localhost:8080/CORCOM_FrontEnd/';
+                }
+        </script>
+        <script>
+            function classToggle() {
+                var el = document.querySelector('.icon-cards__content');
+                el.classList.toggle('step-animation');
+            }
+
+            document.querySelector('#toggle-animation').addEventListener('click', classToggle);
+        </script>
+        <script src="../JS/inicioCliente.js"></script>
+    </body>
+</html>

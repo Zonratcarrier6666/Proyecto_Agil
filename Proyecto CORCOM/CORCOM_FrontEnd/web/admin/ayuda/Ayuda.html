@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM</title>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 120px;
+                background-color: #000;
+                color: #fff;
+                padding: 10px;
+                z-index: 10;
+            }
+            .sidebar button {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                margin-bottom: 20px;
+            }
+            .sidebar img {
+                width: 50px;
+                height: 50px;
+            }
+            .sidebar span {
+                color: #fff;
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            .footer {
+                background-color: #000;
+                color: #fff;
+                padding: 0px;
+                text-align: center;
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+                z-index: 10;
+            }
+            .footer a {
+                color: #00ff66;
+                margin: 10px;
+            }
+
+            .centered-content {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+            }
+
+            .Registro-container {
+              margin-left: 10%;
+              margin-right: 5%;
+            }
+
+            /* Ajuste del contenedor con box-shadow */
+            .box-shadow-container {
+                position: relative;
+                width: 80%; /* Ajusta el ancho según tus necesidades */
+                height: 80%;
+                border-radius: 15px; /* Bordes redondeados */
+                overflow: hidden; /* Para asegurar que el contenido no sobresalga del contenedor redondeado */
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7); /* Sombra más pronunciada alrededor del contenedor */
+                border: 2px solid #fff; /* Borde blanco */
+                background: rgba(0, 0, 0, 0.7); /* Fondo negro para el contenedor */
+                margin: 20px; /* Margen para separación */
+                align-items: center; 
+                justify-content: center; 
+                overflow: auto;
+            }
+
+            /* Ajuste de la imagen dentro del contenedor */
+            .box-image {
+
+                margin-left: 25%; 
+                margin-right: 20%;/* Ajusta la imagen al ancho del contenedor */
+                height: 75%; /* Mantiene la relación de aspecto */
+                width: 50%;
+            }
+
+            /* Ajuste del texto dentro del contenedor */
+            .box-text {
+                color: #fff; /* Texto blanco */
+                text-align: center;
+                padding: 15px; /* Espaciado interno ajustado */
+                font-size: 30px; /* Ajusta el tamaño de fuente según tus necesidades */
+                
+            }
+
+
+
+            /* Resto del CSS aquí */
+            @media screen and (max-width: 768px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+            @media screen and (max-width: 576px) {
+                .sidebar {
+                    width: 100px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <div class="video-container">
+                <video autoplay muted loop id="video-background">
+                    <source src="../../media/video/background2.mp4" type="video/mp4">
+                </video>
+                <div class="overlay"></div>
+            </div>
+        </div>
+        <div class="footer" style="display: flex; justify-content: space-around;">
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/whatsapp.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="https://wa.me/524776121215" target="_blank" style="color: white; text-decoration: none;">Mándanos mensaje<br>+52 477 612 1215</a>
+            </button>
+            <button style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/correo-electronico-vacio.png" alt="Imagen del botón" style="width: 40px; height: 40px; margin-right: 10px;">
+                <a href="mailto:angel.puga100@gmail.com" style="color: white; text-decoration: none;">corcom@gmail.com</a> 
+            </button>
+            <button onclick="window.location.href = 'https://aws.amazon.com/';" style="background-color: transparent; border: none; cursor: pointer; display: flex; align-items: center;">
+                <img src="../../media/img/certified.png" alt="Imagen del botón" style="width: 50px; height: 50px; margin-right: 10px;">
+
+            </button>
+        </div>
+        <div class="sidebar" >
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <img src="../../media/img/Logo corcom.png"   alt="Imagen del botón" style="width:80px; height: 60px;">
+            </button>
+            <!-- BUTTON HOME -->
+            <button onclick="window.location.href = '../../admin/inicio/inicioCliente.html';" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/pagina-de-inicio.png" alt="Imagen del botón" style=" width: 50px; height: 50px; ">
+                    <span style="color: #1D4273; display: block; font-size: 18px; font-weight: bold;">Inicio</span>
+                </div>
+            </button>
+            <!-- BUTTON SERVICIOS -->
+            <button onclick="window.location.href = '../../admin/servicios/Servicios.html';" id="btnServicios" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/tech-support.png" alt="Imagen del botón" style="width: 50px; height: 50px;">
+                    <span style="color: #4AB0D9; display: block; font-size: 18px; font-weight: bold;">Servicios</span>
+                </div>
+            </button>
+            <!-- BUTTON PROYECTOS -->
+            <button onclick="window.location.href = '../../admin/proyectos/InicioProyectos.html';" id="btnProyectos" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center; padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/gestion-de-proyectos.png" alt="Imagen del botón" style="width: 50px; height:50px; ">
+                    <span style="color: #055923; display: block; font-size: 18px; font-weight: bold;">Proyectos</span>
+                </div>
+            </button>
+            <!-- BUTTON AYUDA -->
+            <button onclick="window.location.href = '../../admin/ayuda/Ayuda.html';" id="btnAyuda" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/informacion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #B9D948; display: block; font-size: 18px; font-weight: bold;">Ayuda</span>
+                </div>
+            </button>
+            <!-- BUTTON LOGOUT -->
+            <button id="btnLogOut" style="background-color: transparent; border: none; cursor: pointer; margin-bottom: 40px;">
+                <div style="text-align: center;padding-left: 10px; padding-right: 10px;">
+                    <img src="../../media/img/cerrar-sesion.png" alt="Imagen del botón" style="width: 50px; height: 50px; display: block;">
+                    <span style="color: #ffffff; display: block; font-size: 18px; font-weight: bold;">Salir</span>
+                </div>
+            </button>
+        </div>
+
+
+        <div class="centered-content Registro-container" id="detallesProyectoModal">
+            <div class="box-shadow-container">
+                <img src="../../media/img/Logo corcom.png" alt="Descripción de la imagen" class="box-image">
+                <p class="box-text">Estamos aquí para ayudarte. Si tienes alguna pregunta, duda o necesitas asistencia, no dudes en ponerte en contacto con nosotros. A continuación, te proporcionamos diferentes formas para que puedas hacerlo:</p>
+                <p class="box-text">1. Envíanos un Mensaje por WhatsApp
+
+                    Para consultas rápidas o si prefieres una comunicación instantánea, puedes enviarnos un mensaje a través de WhatsApp. Haz clic en el siguiente enlace para comenzar una conversación con nuestro equipo:
+
+                    Enviar Mensaje por WhatsApp +524776121215</p> 
+                <p class="box-text">
+                    2. Envíanos un Correo Electrónico
+
+                    Si prefieres enviar un correo electrónico detallado, puedes hacerlo a la siguiente dirección. Nuestro equipo responderá a tu consulta lo antes posible:
+
+                    Correo Electrónico: corcom@gmail.com</p>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="../JS/LogOut.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+                // Comprobar si hay token en el localStorage
+                let token = localStorage.getItem('token');
+                if (!token) {
+                    // Redirigir a la URL especificada si no hay token
+                    window.location.href = 'http://localhost:8080/CORCOM_FrontEnd/';
+                }
+    </script>
+</body>
+</html>

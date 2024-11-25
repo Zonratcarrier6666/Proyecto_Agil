@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CORCOM-Login</title>
+        <link rel="icon" href="../../media/img/Logo corcom.png" type="image/png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+                background-color: #000;
+                color: #fff;
+            }
+
+            .video-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            #video-background {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: -1;
+            }
+
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(to bottom, rgba(29, 35, 136, 0.4) 0%, rgba(5, 116, 51, 0.7) 50%, rgba(0, 0, 0, 0.8) 100%);
+                z-index: -1;
+            }
+
+            .login-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                width: 500px;
+            }
+
+            .logo {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                background-color: #333;
+                color: #fff;
+                border-radius: 5px;
+            }
+
+            .input-group {
+                position: relative;
+            }
+
+            .input-group input {
+                padding-right: 40px;
+            }
+
+            .input-group .eye-icon {
+                position: absolute;
+                top: 50%;
+                right: 10px;
+                transform: translateY(-50%);
+                cursor: pointer;
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 20px;
+            }
+
+            .btn-group button {
+                flex: 1;
+                margin: 0 5px;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .btn-group button.login {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+            .btn-group button.register {
+                background-color: #28a745;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="video-container">
+            <video autoplay muted loop id="video-background">
+                <source src="../../media/video/background2.mp4" type="video/mp4">
+            </video>
+            <div class="overlay"></div>
+        </div>
+
+        <div class="login-container">
+            <div class="logo">
+                <img src="../../media/img/Logo corcom.png" alt="Logo" style="width: 250px; height: 200px;">
+            </div>
+            <div>
+                <div class="form-group">
+                    <label  for="username" style="font-size: 30px; font-weight: bold;">Username</label>
+                    <input type="text" id="username" name="username" style="font-size: 20px; font-weight: bold;" placeholder="Enter username">
+                </div>
+                <label  for="password" style="font-size: 30px; font-weight: bold;">Password</label>
+                <div class="form-group input-group">
+                    <input type="password" id="password" name="password" style="font-size: 20px; font-weight: bold;" placeholder="Enter password">
+                    <span class="eye-icon" onclick="togglePasswordVisibility()">
+                        <img src="../../media/img/ojo-cerrado.png" alt="Toggle visibility" width="30px" height="30px">
+                    </span>
+                </div>
+                <div class="btn-group">
+                    <button id="btnLogin" class="login" style="font-size: 20px; font-weight: bold;">Login</button>
+                    <button onclick="window.location.href = 'registro.html';" id="btnRegistrar" class="register" style="font-size: 20px; font-weight: bold;">Register</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function togglePasswordVisibility() {
+                var passwordInput = document.getElementById('password');
+                var eyeIcon = document.querySelector('.eye-icon img');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.src = '../../media/img/visibilidad.png'; // Cambia a un icono de ojo abierto
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.src = '../../media/img/ojo-cerrado.png'; // Cambia a un icono de ojo cerrado
+                }
+            }
+        </script>
+        <script>
+            window.onload = function() {
+                var token = localStorage.getItem('token');
+                if (token) {
+                    window.location.href = 'admin/inicio/indexCliente.html';
+                }
+            };
+        </script>
+        <script src="../JS/LogIn.js"></script>>
+    </body>
+</html>
