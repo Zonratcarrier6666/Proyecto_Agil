@@ -1,17 +1,22 @@
-# HTML
-# Archive your static HTML project and save it with the build record.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
-- main
+  branches:
+    include:
+      - main   # o cualquier rama que desees monitorizar
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'   # Usamos una imagen de Ubuntu para el build
 
 steps:
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(build.sourcesDirectory)'
-    includeRootFolder: false
-- task: PublishBuildArtifacts@1
+  # Paso 1: Construir el proyecto con Maven
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package'  # Limpia y construye el archivo .jar
+      options: '-DskipTests'  # Opcional, omite pruebas si no quieres ejecutarlas en cada build
+
+  # Paso 2: Desplegar el archivo .jar a una aplicación en Azure Web App
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: '<Proyecto morales>'  # Nombre de la suscripción Azure
+      appName: '<neryProyecto>'  # Nombre de la app web en Azure
+      package: '$(Build.ArtifactStagingDirectory)/**/*.jar'  # Ruta del archivo .jar construido
